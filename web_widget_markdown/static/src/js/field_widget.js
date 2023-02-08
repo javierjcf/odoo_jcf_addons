@@ -1,4 +1,4 @@
-odoo.define('web_widget_markdown', function (require) {
+odoo.define('my_field_widget', function (require) {
     "use strict";
     var fieldRegistry = require('web.field_registry');
     var basicFields = require('web.basic_fields');
@@ -7,10 +7,13 @@ odoo.define('web_widget_markdown', function (require) {
     var markdownField = basicFields.FieldText.extend({
         supportedFieldTypes: ['text'],
         className: 'o_field_markdown',
+        jsLibs: [
+            '/web_widget_markdown/static/lib/simplemde.min.js',
+        ],
         
-        // Lo sobreescribo para mostrar algo diferente que el valor
+        // Parseamos el valor en Markdown con la librerría de SimpleMDE
         _renderReadonly: function () {
-            this.$el.html("<h1>Hello world</h1>");
+            this.$el.html(SimpleMDE.prototype.markdown(this.value));
         },
     });
     
@@ -19,4 +22,4 @@ odoo.define('web_widget_markdown', function (require) {
     return {
         markdownField: markdownField,
     };
-});
+    });

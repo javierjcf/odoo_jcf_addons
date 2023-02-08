@@ -22,16 +22,15 @@ odoo.define('web_widget_markdown_tests', function (require) {
                         },
                     },
                     records: [
-                        {
-                            id: 1, name: "Blog Post 1", 
-                            content: "# Hello world",
-                        }
+                        {id: 1, name: "Blog Post 1", content: "# Hello world",},
+                        {id: 2, name: "Blog Post 2", content: "## Second title",},
                     ]
                 }
             };
         }}, 
         function () {
-            QUnit.only('web_widget_markdown test suite', async function(assert) {
+            // Testeo que haya un <h1> y un Hola mundo dentro
+            QUnit.test('web_widget_markdown test suite', async function(assert) {
                 assert.expect(2);
                 var form = await testUtils.createView({
                     View: FormView,
@@ -55,6 +54,32 @@ odoo.define('web_widget_markdown_tests', function (require) {
                     "Hello world", 
                     "<h1> should contain 'Hello world'"
                 );
+                form.destroy();
+            });
+            QUnit.test('web_widget_markdown readonly test 2', async function(assert) {
+                assert.expect(2);
+                var form = await testUtils.createView({
+                    View: FormView,
+                    model: 'blog',
+                    data: this.data,
+                    arch: '<form string="Blog">' +
+                            '<group>' +
+                                '<field name="name"/>' +
+                                '<field name="content" widget="markdown"/>' +
+                            '</group>' +
+                        '</form>',
+                    res_id: 2,
+                });
+                assert.strictEqual(
+                    form.$('.o_field_markdown').find("h2").length, 
+                    1, 
+                    "h2 should be present"
+                )
+                assert.strictEqual(
+                    form.$('.o_field_markdown h2').text(), 
+                    "Second title", 
+                    "<h2> should contain 'Second title'"
+                )
                 form.destroy();
             });
         }
