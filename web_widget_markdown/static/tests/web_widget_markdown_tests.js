@@ -116,6 +116,74 @@ odoo.define('web_widget_markdown_tests', function (require) {
                 )
                 form.destroy();
             });
+            // Testeo que SimpleMDE esre disponible, si hay uun div con la clase
+            // .CodeMirror lo daré por cargado
+            QUnit.test('web_widget_markdown SimpleMDE is present', async function(assert) {
+                assert.expect(1);
+                var form = await testUtils.createView({
+                    View: FormView,
+                    model: 'blog',
+                    data: this.data,
+                    arch: '<form string="Blog">' +
+                            '<group>' +
+                            '<field name="name"/>' +
+                                '<field name="content" widget="markdown"/>' +
+                            '</group>' +
+                        '</form>',
+                    res_id: 1,
+                });
+                await testUtils.form.clickEdit(form);
+                assert.strictEqual(
+                    form.$('.o_field_markdown').find("div.CodeMirror").length, 
+                    1, 
+                    "CodeMirror div should be present"
+                )
+                form.destroy();
+            });
+            // Testeo que pueda editar
+            QUnit.test('web_widget_markdown edit SimpleMDE', async function(assert) {
+                assert.expect(4);
+                var form = await testUtils.createView({
+                    View: FormView,
+                    model: 'blog',
+                    data: this.data,
+                    arch: '<form string="Blog">' +
+                            '<group>' +
+                            '<field name="name"/>' +
+                                '<field name="content" widget="markdown"/>' +
+                            '</group>' +
+                        '</form>',
+                    res_id: 1,
+                });
+                await testUtils.form.clickEdit(form);
+                var markdownField = _.find(form.renderer.allFieldWidgets)[1];
+            
+                assert.strictEqual(
+                    markdownField.simplemde.value(), 
+                    "# Hello world", 
+                    "Initial Value of SimpleMDE should be set"
+                )
+            
+                markdownField.simplemde.value('**bold content**');
+                assert.strictEqual(
+                    markdownField._getValue(), 
+                    "**bold content**", 
+                    "If we change value in SimpleMDE, value of odoo widget should be updated"
+                )
+            
+                await testUtils.form.clickSave(form);
+                assert.strictEqual(
+                    form.$('.o_field_markdown').find("strong").length, 
+                    1, 
+                    "After Save, b should be present"
+                )
+                assert.strictEqual(
+                    form.$('.o_field_markdown strong').text(), 
+                    "bold content", 
+                    "After Save, <strong> should contain 'bold content'"
+                )
+                form.destroy();
+            });
         }
     );
  })
