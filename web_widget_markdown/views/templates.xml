@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-<template id="assets_backend" inherit_id="web.assets_backend">
+    <template id="assets_backend" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
+            <!-- Cargo la librería de simple markdown -->
             <link rel="stylesheet" href="/web_widget_markdown/static/lib/simplemde.min.css"/>
             <script src="/web_widget_markdown/static/lib/simplemde.min.js"></script>
+            
+            <!-- Cuastom JS -->
+            <script src="/web_widget_markdown/static/src/js/field_widget.js" type="text/javascript" />
         </xpath>
     </template>
 
