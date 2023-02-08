@@ -56,6 +56,7 @@ odoo.define('web_widget_markdown_tests', function (require) {
                 );
                 form.destroy();
             });
+            // Le paso el registro 2 y compruebo que hay H2 y second title
             QUnit.test('web_widget_markdown readonly test 2', async function(assert) {
                 assert.expect(2);
                 var form = await testUtils.createView({
@@ -79,6 +80,39 @@ odoo.define('web_widget_markdown_tests', function (require) {
                     form.$('.o_field_markdown h2').text(), 
                     "Second title", 
                     "<h2> should contain 'Second title'"
+                )
+                form.destroy();
+            });
+            // Testeo el modo de edición
+            QUnit.test('web_widget_markdown edit form', async function(assert) {
+                assert.expect(2);
+                var form = await testUtils.createView({
+                    View: FormView,
+                    model: 'blog',
+                    data: this.data,
+                    arch: '<form string="Blog">' +
+                            '<group>' +
+                                '<field name="name"/>' +
+                                '<field name="content" widget="markdown"/>' +
+                            '</group>' +
+                        '</form>',
+                    res_id: 1,
+                });
+                // Hago click en editar
+                await testUtils.form.clickEdit(form);
+                // Añado contenido en negrita
+                await testUtils.fields.editInput(form.$('.o_field_markdown'), '**bold content**');
+                // Salvo la vista
+                await testUtils.form.clickSave(form);
+                assert.strictEqual(
+                    form.$('.o_field_markdown').find("strong").length, 
+                    1, 
+                    "b should be present"
+                )
+                assert.strictEqual(
+                    form.$('.o_field_markdown strong').text(), 
+                    "bold content", 
+                    "<strong> should contain 'bold content'"
                 )
                 form.destroy();
             });
