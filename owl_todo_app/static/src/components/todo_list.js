@@ -7,12 +7,11 @@ import { useService } from "@web/core/utils/hooks";
 export class OwlTodoList extends Component {
     setup(){
         this.state = useState({
-            value: 1,
+            task:{name: "", color: "#FF0000", completed: false},
             taskList: [
-                // {id:1, name:"Task 1", color:"#FF0000", completed:true},
-                // {id:2, name:"Task 2", color:"#000000", completed:false},
-                // {id:3, name:"Task 3", color:"#FFFFFF", completed:true},
-            ]
+            ],
+            isEdit: false,
+            activeId: false,
         });
         this.orm = useService("orm");
         this.model = "owl.todo.list"
@@ -24,6 +23,42 @@ export class OwlTodoList extends Component {
 
     async getAllTask(){
         this.state.taskList = await this.orm.searchRead(this.model, [], ["name", "color", "completed"]);
+    }
+
+    addTask(){
+        this.resetForm();
+        this.state.activeId = false;
+        this.state.isEdit = false;
+    }
+    
+    editTask(task){
+        this.state.activeId = task.id;
+        this.state.isEdit = true;
+        // this.state.task = {name: task.name, color: task.color, completed: task.completed};
+        this.state.task = {...task};
+    }
+
+    async deleteTask(task){
+        await this.orm.unlink(this.model, [task.id]);
+         // Para que se refresque la tarea
+         await this.getAllTask();
+    }
+
+    async saveTask(){
+        // this.orm.create(this.model, [{name: this.state.task.name, color: this.state.task.color, completed: this.state.task.completed}]);
+        if (!this.state.isEdit){
+            await this.orm.create(this.model, [this.state.task]);
+        } else {
+            await this.orm.write(this.model, [this.state.activeId], this.state.task);
+        }
+        // Para que se refresque la tarea
+        await this.getAllTask();
+    }
+
+    resetForm(){
+        // Reinicio el formulario del modal para que no recuerde los datos
+        // por ejemplo si editamos antes
+        this.state.task = {name: "", color: "#FF0000", completed: false};
     }
 }
 
