@@ -17,8 +17,7 @@
     "application": True,
     "assets": {
         "web.assets_backend": [
-        ],
-        "web.assets_frontend": [
+            'owl_todo_app/static/src/**/*',
         ],
     }
 }
