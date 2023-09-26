@@ -46,5 +46,6 @@
         <menuitem id="menu_owl_todo_list" name="Todo list" action="owl_todo_list_action" sequence="10"/>
         <menuitem id="menu_owl_todo_list_js" name="Todo list OWL" action="owl_todo_list_action_js" sequence="10"/>
     </menuitem>
+    
 
 </odoo>
