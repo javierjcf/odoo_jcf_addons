@@ -1,0 +1,43 @@
+<odoo>
+    <!-- owl.todo.list form view -->
+    <record id="owl_todo_list_view_form" model="ir.ui.view">
+        <field name="name">owl.todo.list.view.form</field>
+        <field name="model">owl.todo.list</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="completed"/>
+                        <field name="color"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- owl.todo.list tree view -->
+    <record id="owl_todo_list_view_tree" model="ir.ui.view">
+        <field name="name">owl.todo.list.view.tree</field>
+        <field name="model">owl.todo.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="completed"/>
+                <field name="color" widget="color"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- owl.todo.list action window -->
+    <record id="owl_todo_list_action" model="ir.actions.act_window">
+        <field name="name">Todo List</field>
+        <field name="res_model">owl.todo.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_owl_tutorial" name="OWL Tutorial" sequence="99">
+        <menuitem id="menu_owl_todo_list" name="Todo list" action="owl_todo_list_action" sequence="10"/>
+    </menuitem>
+
+</odoo>
