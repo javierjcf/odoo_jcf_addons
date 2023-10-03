@@ -39,7 +39,7 @@
 
     <record id="owl_todo_list_action_js" model="ir.actions.client">
         <field name="name">Todo List OWL</field>
-        <field name="tag">owl_todo_app.action_todo_list_js</field>
+        <field name="tag">owl_tutorial.action_todo_list_js</field>
     </record>
 
     <menuitem id="menu_owl_tutorial" name="OWL Tutorial" sequence="99">

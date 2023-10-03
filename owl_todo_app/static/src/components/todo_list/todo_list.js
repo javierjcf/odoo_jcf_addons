@@ -76,5 +76,5 @@ export class OwlTodoList extends Component {
     }
 }
 
-OwlTodoList.template = 'owl_todo_app.TodoList'
-registry.category('actions').add('owl_todo_app.action_todo_list_js', OwlTodoList)
+OwlTodoList.template = 'owl_tutorial.TodoList'
+registry.category('actions').add('owl_tutorial.action_todo_list_js', OwlTodoList)

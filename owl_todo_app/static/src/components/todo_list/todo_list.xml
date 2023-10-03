@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="owl_todo_app.TodoList" owl="1">
+    <t t-name="owl_tutorial.TodoList" owl="1">
         <div class="todo-list-container">
             <div class="row mx-2 mt-3">
                 <div class="col-lg-6">

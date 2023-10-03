@@ -10,6 +10,7 @@
     "data": [
         'security/ir.model.access.csv',
         'views/todo_list.xml',
+        'views/res_partner.xml',
     ],
     "demo": [
     ],
@@ -17,7 +18,9 @@
     "application": True,
     "assets": {
         "web.assets_backend": [
-            'owl_todo_app/static/src/**/*',
+            'owl_tutorial/static/src/components/*/*.js',
+            'owl_tutorial/static/src/components/*/*.xml',
+            'owl_tutorial/static/src/components/*/*.scss',
         ],
     }
 }
