@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="Header" owl="1">
+        <header class="container">
+            <div class="row justify-content-center mt-3 mb-4">
+                <div class="col-8">
+                    <h3 class="text-header">The selected department '<t
+                            t-out="props.selectedDepartment[0].name"/>' has a total of
+                        <t t-out="props.employeesNo"/>
+                        employee<t t-if="props.employeesNo gt 1">s</t></h3>
+                </div>
+                <t t-set="setActive" t-value="props.globalSelect.setActive"/>
+                <div class="col-1">
+                    <button class="btn" data-hotkey="E" t-att-class="setActive ? 'btn-danger' : 'btn-primary'" t-on-click="props.headerSelectHandler"><t t-if="! setActive">Select</t><t t-else="">Cancel</t></button>
+                </div>
+                <div class="col-1" t-if="setActive and !props.globalSelect.selectAll" title="Select all employees from all departments.">
+                    <button data-hotkey="W" style="width: 116%" class="btn btn-primary" t-on-click="props.headerSelectAllHandler">Select All</button>
+                </div>
+            </div>
+        </header>
+    </t>
+</templates>

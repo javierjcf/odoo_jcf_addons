@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="owl_playground.playground" owl="1">
+        <div class="p-3">
+            hello world
+        </div>
+
+        <Counter />
+
+        <hr/>
+
+        <Todo items="[{'id': 0, 'description': 'A test item', done: false}]"/>
+
+
+        <hr/>
+        <Card>
+            <t t-set-slot="title">A slotted card title</t>
+            Some example text slotted into the default position
+        </Card>
+        <Card>
+            Slotted card without a title
+        </Card>
+    </t>
+</templates>

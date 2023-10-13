@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="owl_playground.todo" owl="1">
+        <h2>Todo list</h2>
+        <input type="text" maxlength="100" placeholder="Add a todo item"
+            t-ref="todoInput"
+            t-on-keyup="ev => ev.target.value and ev.keyCode === 13 and this.addItem(ev.target.value) and (ev.target.value = '')"/>
+        <div t-foreach="state.items" t-as="item" t-key="item.id" style="user-select: none;">
+            <div class="todo-item" t-att-class="{'text-muted': item.done}">
+                <input t-attf-id="item.id#{value2}'" type="checkbox" t-model="item.done" />
+                <label class="ms-1" t-attf-for="item.id#{value2}" t-att-class="{'text-decoration-line-through': item.done}"
+                    t-esc="item.description" />
+                    <span class="fa fa-remove ms-3 text-danger" t-on-click="ev => this.removeItem(item.id)"></span>
+            </div>
+        </div>
+    </t>
+</templates>

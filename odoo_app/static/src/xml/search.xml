@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="SearchEmployee" owl="1">
+        <div class="container" t-ref="root-search">
+            <div class="row height-search d-flex justify-content-center align-items-center">
+              <div class="col-md-6">
+                <div class="form-search">
+                  <i class="fa fa-search"/>
+                    <input type="text" class="form-control form-input-search"
+                           data-hotkey="S"
+                           placeholder="Search Employees..."
+                           t-on-blur="searchEmployee"
+                           t-on-keyup="handleKeyUp"/>
+                    <span class="left-pan-search"><i t-if="!voice.active" class="fa fa-microphone select-active" t-on-click="handleMicroPhone"/>
+                        <div t-if="voice.active" class="boxContainer select-active" t-on-click="handleMicroPhoneStop">
+                            <div class="box box1"/>
+                            <div class="box box2"/>
+                            <div class="box box3"/>
+                            <div class="box box4"/>
+                            <div class="box box5"/>
+                        </div>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+    </t>
+</templates>

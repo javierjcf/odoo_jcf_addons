@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="App" owl="1">
+        <div class="scroll-div" t-ref="root">
+            <main class="container">
+               <div class="row justify-content-center mt-3 mb-3">
+                <!-- Child components are added to the template, and `root` is added as
+                the reference using `t-ref` so that it can be accessed as a reference using
+                `useRef` in JavaScript.-->
+                   <SearchEmployee/>
+                   <Header t-props="headerProps"/>
+                   <Body t-props="bodyProps"/>
+                   <Footer/>
+                   <!-- Props of the child components are passed using `t-props`
+                   along with their corresponding getter functions.-->
+               </div>
+            </main>
+        </div>
+    </t>
+</templates>

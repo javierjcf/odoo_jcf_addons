@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="Body" owl="1">
+       <main class="container">
+           <div class="row justify-content-center mt-3 mb-3">
+               <div class="col-6 ">
+                   <select class="form-select form-select-lg"
+                           aria-label="Default select example"
+                           t-att-value="props.selectedDepartment.teamId"
+                           t-on-change="props.handleOnChangeDepartment">
+                    <!--The options were passed as props and iterated, and
+                    then added to the template using the `t-foreach` method.
+                    In Owl.js, the `t-key` is necessary as a unique identifier.-->
+                       <option t-foreach="props.employeeDepartment"
+                               t-as="employeeDepartment"
+                               t-key="employeeDepartment_index"
+                               t-att-value="employeeDepartment.id"
+                               t-out="employeeDepartment.name"/>
+                       <option value="0">All</option>
+                   </select>
+               </div>
+           </div>
+           <div class="row justify-content-center mt-3 mb-3 slow-down"
+           >
+               <t t-if="props.globalSelect.setActive">
+                   <div class="col-2"
+                        title="Number of selected employees from this department.">
+                       <span>Selected : <t
+                               t-out="props.selectedNoEmployeesByDept or 0"/></span>
+                   </div>
+                   <div class="col-2">
+                       <button class="btn" data-hotkey="L"
+                               title="Select all employees from this department."
+                               t-on-click="props.selectAllByCategory">Select All</button>
+                   </div>
+               </t>
+           </div>
+           <div class="row justify-content-center mt-3 mb-3">
+               <div class="col-8 mln45">
+                   <div class="card-collection">
+                       <t t-foreach="props.employeeData" t-as="employee"
+                          t-key="employee_index">
+                        <!--For each employee, the `Image` component is called,
+                        which is a child component of the `Body` component.-->
+                           <Images employee="employee"
+                                   globalSelect="props.globalSelect"/>
+                           <!--Here, the `employee` and `globalSelect` props are
+                           defined and passed to the Images component.-->
+                       </t>
+                   </div>
+               </div>
+           </div>
+       </main>
+    </t>
+    <!-- `Images` Component is defined here-->
+    <t t-name="Images" owl="1">
+        <!--The `t-on-click.stop.prevent` is used because the main `div`
+             with the `card` class already has a click function to make the card
+             selectable. When clicking on this `a` tag, it should prevent the
+             default function from working. The `t-on-click.stop.prevent` is
+             used to stop and prevent the default function and execute the
+             defined action instead.-->
+         <div t-key="props.employee.id" t-on-click="onClickImage"
+              class="card m-2 select-active d-flex align-items-stretch"
+              t-attf-class="{{ props.employee.clicked ? 'standout': ''}}"
+              t-ref="root-image"
+              style="width: 18rem; position: relative; height: 350px;">
+                <div style="height: 100%;">
+                    <div class="image-container">
+                        <img t-att-src="image" alt="Employee" class="card-img-top"/>
+                    </div>
+                    <div class="card-body" t-att-value="props.employee.id">
+                        <h5 class="card-title" t-out="props.employee.name"/>
+                        <p class="card-text" t-out="props.employee.job_id[1]"/>
+                    </div>
+                </div>
+             <!-- Positioning the buttons using Flexbox -->
+                <div class="d-flex justify-content-between align-items-center"
+                  style="position: absolute; bottom: 0; width: 100%;">
+                <a t-on-click.stop.prevent="goBackend" class="button-odoo">
+                <span class="font">Go backend</span>
+                </a>
+                 <a t-if="props.employee.user_id" title="Chat"
+                    icon="fa-comments"
+                    t-on-click.stop.prevent="() => openChat(props.employee.id)"
+                    href="#" class="ml8 o_employee_chat_btn" role="button"
+                    style="transform: translateX(-8px);">
+                <i class="fa fa-comments align-middle fs-6"/>
+                </a>
+            </div>
+         </div>
+        <EmployeeChart employee="props.employee"
+                       employeeTimeSheet="employeeTimeSheet"/>
+    </t>
+    <t t-name="EmployeeChart" owl="1">
+        <!-- The Modal -->
+        <div t-attf-id="modal_{{ props.employee.id }}" class="modal-employee"
+             t-ref="Modal">
+          <!-- Modal content -->
+            <div class="modal-employee-content">
+                <div class="modal-employee-header">
+                    <span class="close" t-on-click="handleModalClose">×</span>
+                    <h2 t-out="props.employee.display_name"/>
+                </div>
+                <div class="modal-employee-body">
+                    <canvas class="chart"/>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

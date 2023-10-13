@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="awesome_tshirt.clientaction" owl="1">
+        <Layout display="">
+            <p>Hello owl</p>
+
+            <a href="#" class="btn btn-primary" t-on-mousedown="ev => this.openCustomers()">Customers</a>
+            <a href="#" class="btn btn-primary" t-on-click="ev => this.openNewOrders()">New Orders</a>
+            <button href="#" class="btn btn-primary" t-on-click="ev => this.openCancelledOrders()">Cancelled Orders</button>
+        </Layout>
+    </t>
+
+</templates>

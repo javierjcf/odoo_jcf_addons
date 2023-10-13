@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="owl_app_action_client_base" model="ir.actions.client">
+        <field name="name">Odoo App</field>
+        <field name="tag">odoo_app</field>
+    </record>
+    <menuitem id="owl_app_menu" name="Odoo App"
+              action="owl_app_action_client_base"/>
+</odoo>
