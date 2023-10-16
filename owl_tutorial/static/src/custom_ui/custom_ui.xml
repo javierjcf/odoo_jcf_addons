@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="owl_tutorial.test_ui" owl="1">
+        <div>
+            <div class="custom-buttons">
+                <button t-on-click="showStockPickingKanban">Kanban Stock Picking</button>
+                <button t-on-click="showOdooKanban">Kanban Odoo</button>
+                <button t-on-click="returnToOdooBackend">Close</button>
+            </div>
+            <div class="custom-kanban">
+                <t t-set="domain" t-value="[]"/>
+                    <t t-attf-kanban-model="stock.picking"/>
+                    <t t-attf-kanban-model="res.partner"/>
+            </div>
+    </div>
+    </t>
+</templates>

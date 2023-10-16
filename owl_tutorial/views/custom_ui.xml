@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="custom_ui_template" name="Custom Delivery Template">
+        <html>
+            <head>
+                <!-- <t t-call-assets="web.assets_common"/>
+                <t t-call-assets="web.assets_backend"/> -->
+                <t t-call-assets="owl_tutorial.custom_ui"/>
+            </head>
+            <body>
+            </body>
+        </html>
+            
+    </template>
+    
+
+    <record id="action_open_custom_ui" model="ir.actions.act_url">
+            <field name="name">Custom UI</field>
+            <field name="url">/custom/ui</field>
+            <field name="target">new</field>
+    </record>
+
+    <menuitem 
+        name="Custom UI"
+        id="menu_open_custom_ui"
+        parent="owl_tutorial.menu_owl_tutorial"
+        action="action_open_custom_ui"
+        sequence="99"/>
+</odoo>
