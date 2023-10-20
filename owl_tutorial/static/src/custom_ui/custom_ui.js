@@ -1,11 +1,12 @@
 /** @odoo-module */
 import { Component, useState } from "@odoo/owl";
+import { Counter } from "./counter.js"
 const { xml, mount } = owl;
 
-debugger;
 
 export class TestComponent extends Component {
     static template = "owl_tutorial.test_ui"
+    static components = { Counter }
     setup(){
         super.setup()
         console.log("This is Test Component")
